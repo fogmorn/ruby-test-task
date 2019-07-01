@@ -21,24 +21,24 @@ class Report
     end
 
     def send result_file, to="email"
-		report = open(result_file).read
+        report = self.read result_file
 
         case to
         when "email"
-			Mailer.deliver(
-			  from: 'system@email.com', 
-			  to: host.email, 
-			  subject: 'Report',
-			  body: report
-			)
+            Mailer.deliver(
+              from: 'system@email.com', 
+              to: host.email, 
+              subject: 'Report',
+              body: report
+            )
         when "telegram"
             #
         end
     end
 
-	def to_s
-		"#{@code}. Guest: #{@guest}. #{@type} #{@entity} at #{@updated_at}"
-	end
+    def to_s
+        "#{@code}. Guest: #{@guest}. #{@type} #{@entity} at #{@updated_at}"
+    end
         
 end
 
@@ -53,10 +53,6 @@ parsed.each do |object|
     r.created_at = object["created_at"]
     r.updated_at = object["updated_at"]
     r.save
-
-	# Print string to stdout.
-    p r.to_s
 end
 
-# Send report
-# r.send("result_file", "email")
+r.send("result", "email")
