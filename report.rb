@@ -13,10 +13,8 @@ class Report
     end
 
     def save
-        File.open("result", 'a') { |file|
-            file.write(
-                "#{@code}. Guest: #{@guest}. #{@type} #{@entity} at #{@updated_at}\n"
-            )
+        File.open("result", 'a') { |file| 
+            file.write(self.to_s + "\n") 
         }
     end
 
